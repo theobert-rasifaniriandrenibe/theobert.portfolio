@@ -8,11 +8,19 @@
     <meta list="description"
         content="Discover the portfolio of Théobert, a developer specializing in innovative web solutions, UI/UX design and visual identity in Madagascar.">
     <title>théobert</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="manifest" href="/site.webmanifest">
+
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 </head>
 
 <body>
@@ -296,7 +304,7 @@
                             <div class="social-links">
                                 <a href="https://www.youtube.com/channel/UCpSaBf5SvAgOXeF3CYUDlZg"
                                     class="social-link">YouTube</a>
-                                <a href="facebook.com/obertjonas" class="social-link">Facebook</a>
+                                <a href="https://www.facebook.com/obertjonas" class="social-link">Facebook</a>
                                 <a href="https://www.linkedin.com/in/th%C3%A9obert-rasivifaniriandrenibe-9ba258287/"
                                     class="social-link">LinkedIn</a>
                             </div>
@@ -304,11 +312,10 @@
                     </div>
                 </div>
 
-                <form class="contact-form">
-                    <input type="text" data-i18n-placeholder="form.namePlaceholder" placeholder="Your Name" required>
-                    <input type="email" data-i18n-placeholder="form.emailPlaceholder" placeholder="Your Email" required>
-                    <textarea data-i18n-placeholder="form.messagePlaceholder" placeholder="Your Message" rows="5"
-                        required></textarea>
+                <form action="https://formspree.io/f/xjgjglja" method="post" class="contact-form">
+                    <input type="text" name="name" data-i18n-placeholder="form.namePlaceholder" placeholder="Your Name" required>
+                    <input type="email" name="email" data-i18n-placeholder="form.emailPlaceholder" placeholder="Your Email" required>
+                    <textarea name="message" data-i18n-placeholder="form.messagePlaceholder" placeholder="Your Message" rows="5" required></textarea>
                     <button type="submit" class="submit-btn" data-i18n="form.submit">Send Message</button>
                 </form>
             </div>
