@@ -61,17 +61,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Contact form handling with AJAX submission to Formspree
+    // Contact form submission to Formspree
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-
             const name = (this.querySelector('input[name="name"]') || {}).value || '';
             const email = (this.querySelector('input[name="email"]') || {}).value || '';
             const message = (this.querySelector('textarea[name="message"]') || {}).value || '';
 
             if (!name.trim() || !email.trim() || !message.trim()) {
+                e.preventDefault();
                 alert('Please fill in all fields.');
                 return;
             }
@@ -79,47 +78,12 @@ document.addEventListener('DOMContentLoaded', () => {
             // Simple email format check
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
+                e.preventDefault();
                 alert('Please enter a valid email address.');
                 return;
             }
 
-            // Disable submit button to prevent multiple submissions
-            const submitBtn = this.querySelector('.submit-btn');
-            const originalText = submitBtn.textContent;
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Sending...';
-
-            // Prepare form data
-            const formData = new FormData();
-            formData.append('name', name);
-            formData.append('email', email);
-            formData.append('message', message);
-
-            // Submit to Formspree
-            fetch('https://formspree.io/f/xjgjglja', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            })
-            .then(response => {
-                if (response.ok) {
-                    alert('Thank you for your message! I will get back to you soon.');
-                    this.reset();
-                } else {
-                    throw new Error('Form submission failed');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Oops! There was a problem submitting your form. Please try again later.');
-            })
-            .finally(() => {
-                // Re-enable submit button
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
-            });
+            // If validation passes, let the form submit normally to Formspree
         });
     }
 
@@ -376,11 +340,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!translations[lang]) lang = 'en';
         translatePage(lang);
         if (langSelect) langSelect.value = lang;
-        try { localStorage.setItem('siteLang', lang); } catch (e) {}
+        try { localStorage.setItem('siteLang', lang); } catch (e) { }
     }
 
     // initialize language from storage or browser
-    const savedLang = (function(){ try { return localStorage.getItem('siteLang'); } catch(e){ return null; } })();
+    const savedLang = (function () { try { return localStorage.getItem('siteLang'); } catch (e) { return null; } })();
     const browserLang = navigator.language ? navigator.language.split('-')[0] : 'en';
     const initialLang = savedLang || (translations[browserLang] ? browserLang : 'en');
     setLanguage(initialLang);
