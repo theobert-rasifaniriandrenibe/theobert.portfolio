@@ -10,11 +10,12 @@
     <title>théobert | Designer & Developer</title>
 
     <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="theobert" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,7 +31,10 @@
     <!-- Navbar -->
     <nav class="navbar">
         <div class="navbar-container">
-            <div class="logo">théobert</div>
+            <div class="logo-section">
+                <img src="/favicon.svg" alt="théobert logo" class="logo-img">
+                <span class="logo-text">théobert</span>
+            </div>
             <ul class="nav-links">
                 <li><a href="#home" class="nav-link active" data-i18n="nav.home">Home</a></li>
                 <li><a href="#about" class="nav-link" data-i18n="nav.about">About</a></li>
@@ -84,6 +88,30 @@
             <div class="float-3"></div>
         </div>
     </section>
+
+    <div class="home-modal" id="homeModal" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="home-modal-backdrop" data-close-modal></div>
+        <div class="home-modal-panel">
+            <button type="button" class="home-modal-close" aria-label="Close home modal">×</button>
+            <div class="home-modal-inner">
+                <div class="home-modal-image">
+                    <picture>
+                        <source srcset="IMG_1237 3.webp" type="image/webp">
+                        <img src="IMG_1237 3.png" alt="théobert profile" loading="lazy">
+                    </picture>
+                </div>
+                <div class="home-modal-copy">
+                    <span class="modal-tag">Portfolio Model</span>
+                    <h2>théobert</h2>
+                    <p>Creative Designer & Developer crafting digital experiences with passion and innovation.</p>
+                    <div class="modal-buttons">
+                        <a href="#work" class="cta-primary">View My Work</a>
+                        <a href="#contact" class="cta-secondary">Get In Touch</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- About Section -->
     <section id="about" class="about">
@@ -309,18 +337,23 @@
                         <div class="contact-item">
                             <span class="label" data-i18n="contact.socialLabel">Social:</span>
                             <div class="social-links">
-                                <a href="https://www.youtube.com/channel/UCpSaBf5SvAgOXeF3CYUDlZg" class="social-link">YouTube</a>
+                                <a href="https://www.youtube.com/channel/UCpSaBf5SvAgOXeF3CYUDlZg"
+                                    class="social-link">YouTube</a>
                                 <a href="https://www.facebook.com/obertjonas" class="social-link">Facebook</a>
-                                <a href="https://www.linkedin.com/in/th%C3%A9obert-rasivifaniriandrenibe-9ba258287/" class="social-link">LinkedIn</a>
+                                <a href="https://www.linkedin.com/in/th%C3%A9obert-rasivifaniriandrenibe-9ba258287/"
+                                    class="social-link">LinkedIn</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <form action="https://formspree.io/f/xjgjglja" method="post" class="contact-form">
-                    <input type="text" name="name" data-i18n-placeholder="form.namePlaceholder" placeholder="Your Name" required>
-                    <input type="email" name="email" data-i18n-placeholder="form.emailPlaceholder" placeholder="Your Email" required>
-                    <textarea name="message" data-i18n-placeholder="form.messagePlaceholder" placeholder="Your Message" rows="5" required></textarea>
+                <form class="contact-form">
+                    <input type="text" name="name" data-i18n-placeholder="form.namePlaceholder" placeholder="Your Name"
+                        required>
+                    <input type="email" name="email" data-i18n-placeholder="form.emailPlaceholder"
+                        placeholder="Your Email" required>
+                    <textarea name="message" data-i18n-placeholder="form.messagePlaceholder" placeholder="Your Message"
+                        rows="5" required></textarea>
                     <button type="submit" class="submit-btn" data-i18n="form.submit">Send Message</button>
                 </form>
             </div>
@@ -329,9 +362,10 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <p>&copy; 2026 théobert. allrights reserved</p>
+        <p>&copy; 2026 théobert</p>
     </footer>
 
     <script src="script.js"></script>
 </body>
+
 </html>

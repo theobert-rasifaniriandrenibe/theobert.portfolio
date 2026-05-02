@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (hamburger && navLinksMenu) {
         hamburger.addEventListener('click', () => {
             navLinksMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
             hamburger.setAttribute('aria-expanded', navLinksMenu.classList.contains('active'));
         });
     }
@@ -58,19 +59,29 @@ document.addEventListener('DOMContentLoaded', () => {
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
             document.querySelector('.nav-links')?.classList.remove('active');
+            document.querySelector('.hamburger')?.classList.remove('active');
         });
     });
 
-    // Contact form submission to Formspree
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.navbar')) {
+            document.querySelector('.nav-links')?.classList.remove('active');
+            document.querySelector('.hamburger')?.classList.remove('active');
+        }
+    });
+
+    // Contact form submission to PHP mailer
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
             const name = (this.querySelector('input[name="name"]') || {}).value || '';
             const email = (this.querySelector('input[name="email"]') || {}).value || '';
             const message = (this.querySelector('textarea[name="message"]') || {}).value || '';
 
             if (!name.trim() || !email.trim() || !message.trim()) {
-                e.preventDefault();
                 alert('Please fill in all fields.');
                 return;
             }
@@ -78,13 +89,71 @@ document.addEventListener('DOMContentLoaded', () => {
             // Simple email format check
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
-                e.preventDefault();
                 alert('Please enter a valid email address.');
                 return;
             }
 
+            // Create FormData
+            const formData = new FormData(this);
+            const btn = this.querySelector('.submit-btn');
+            const originalText = btn.textContent;
+
+            // Disable button during submission
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+
+            // Send via fetch
+            fetch('send-email.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message);
+                        this.reset();
+                    } else {
+                        alert(data.message || 'Failed to send message.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                })
+                .finally(() => {
+                    btn.disabled = false;
+                    btn.textContent = originalText;
+                });
         });
     }
+
+    // Home section modal
+    const homeModal = document.getElementById('homeModal');
+    const profileWrapper = document.querySelector('.profile-wrapper');
+    const modalClose = document.querySelector('.home-modal-close');
+    const modalBackdrop = document.querySelector('.home-modal-backdrop');
+
+    function openHomeModal() {
+        homeModal?.classList.add('active');
+        homeModal?.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeHomeModal() {
+        homeModal?.classList.remove('active');
+        homeModal?.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+
+    profileWrapper?.addEventListener('click', openHomeModal);
+    modalClose?.addEventListener('click', closeHomeModal);
+    modalBackdrop?.addEventListener('click', closeHomeModal);
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            closeHomeModal();
+        }
+    });
 
     // Intersection observer for subtle entrance animations
     const observerOptions = {
