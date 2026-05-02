@@ -943,21 +943,25 @@ body {
 }
 
 .social-link {
-    padding: 8px 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
     background: rgba(255, 0, 110, 0.1);
     border: 1px solid rgba(255, 0, 110, 0.3);
     border-radius: var(--radius-full);
     text-decoration: none;
     color: var(--primary);
     transition: var(--transition);
-    font-weight: 500;
-    font-size: var(--font-size-sm);
+    font-size: 18px;
 }
 
 .social-link:hover {
     background: var(--primary);
     color: var(--bg-dark);
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 0, 110, 0.3);
 }
 
 .contact-form {
